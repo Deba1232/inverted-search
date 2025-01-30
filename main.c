@@ -6,6 +6,7 @@ int main(int argc, char *argv[])
 	char choice_to_continue;
 	int option;
 	FileList *head = NULL;
+	HashT hash_arr[HASHTABLE_SIZE] = {0};
 
 	if(proper_argument_count(argc)){
 		parse_arguments(argc, argv, &head);
@@ -18,9 +19,15 @@ int main(int argc, char *argv[])
 
 			switch(option){
 				case 1:
-					create_database(head);
+					create_database(head, hash_arr);
+					printf("\033[0;34m" "Database created successfully for the files : " "\033[0m");
+					while(head){
+						printf("%s ", head->file);
+						head = head->link;
+					}
 					break;
 				case 2:
+					display_database(hash_arr);
 					break;
 				case 3:
 					break;

@@ -73,10 +73,9 @@ void add_to_database(HashT *arr, char *file_name, char *word){
 	}
 }
 
-void create_database(FileList *head){
-	print_list(head);
+void create_database(FileList *head, HashT *hash_arr){
 	char word[50];
-	HashT hash_arr[HASHTABLE_SIZE];
+
 	create_hashtable(hash_arr, HASHTABLE_SIZE);
 
 	if(!head){
@@ -96,24 +95,5 @@ void create_database(FileList *head){
 		fclose(file);
 		temp = temp->link;
 	}
-
-	MainNode *temp1;
-	SubNode *temp2;
-    for(int i = 0; i < HASHTABLE_SIZE; i++){
-        printf("[%d] - %p", i, hash_arr[i].link);
-        temp1 = hash_arr[i].link;
-        while(temp1){
-            printf("\nMain_node-> %d %s", temp1->file_count, temp1->word);
-
-			temp2 = temp1->sub_link;
-			while(temp2){
-				printf("\n\tsubnode-> %d %s", temp2->word_count, temp2->file_name);
-				temp2 = temp2->sub_link;
-			}
-
-            temp1 = temp1->main_link;
-        }
-        printf("\n");
-    }
 }
 
