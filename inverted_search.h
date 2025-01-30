@@ -32,6 +32,7 @@ typedef struct HashTable{
 }HashT;
 
 void add_to_database(HashT *, char *, char *);
-void create_database(FileList *);
+void create_database(FileList *, HashT *);
+void display_database(HashT *);
 
 #endif
