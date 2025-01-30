@@ -5,6 +5,7 @@ int main(int argc, char *argv[])
 {
 	char choice_to_continue;
 	int option;
+	char word_to_search[50];
 	FileList *head = NULL;
 	HashT hash_arr[HASHTABLE_SIZE] = {0};
 
@@ -20,11 +21,13 @@ int main(int argc, char *argv[])
 			switch(option){
 				case 1:
 					create_database(head, hash_arr);
+
 					printf("\033[0;34m" "Database created successfully for the files : " "\033[0m");
 					while(head){
 						printf("%s ", head->file);
 						head = head->link;
 					}
+
 					break;
 				case 2:
 					display_database(hash_arr);
@@ -32,6 +35,13 @@ int main(int argc, char *argv[])
 				case 3:
 					break;
 				case 4:
+					while(getchar()!='\n');
+
+					printf("Enter the word you want to search: ");
+					scanf("%s",word_to_search);
+					
+					search_database(hash_arr, word_to_search);
+
 					break;
 				case 5:
 					break;

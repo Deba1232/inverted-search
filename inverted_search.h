@@ -34,5 +34,6 @@ typedef struct HashTable{
 void add_to_database(HashT *, char *, char *);
 void create_database(FileList *, HashT *);
 void display_database(HashT *);
+void search_database(HashT *, char *);
 
 #endif
