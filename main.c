@@ -21,12 +21,13 @@ int main(int argc, char *argv[])
 			switch(option){
 				case 1:
 					create_database(head, hash_arr);
-
+					
 					printf("\033[0;34m" "Database created successfully for the files : " "\033[0m");
 					while(head){
 						printf("%s ", head->file);
 						head = head->link;
 					}
+					printf("\n");
 
 					break;
 				case 2:
@@ -39,11 +40,16 @@ int main(int argc, char *argv[])
 
 					printf("Enter the word you want to search: ");
 					scanf("%s",word_to_search);
-					
+
 					search_database(hash_arr, word_to_search);
 
 					break;
 				case 5:
+					save_database_to_file(hash_arr);
+
+					sleep(1);
+					printf("\033[0;34m" "Database Saved!\n" "\033[0m");
+
 					break;
 				default:
 					printf("Not a proper choice\n");

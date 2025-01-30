@@ -4,6 +4,7 @@
 #define HASHTABLE_SIZE 28
 
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
@@ -35,5 +36,6 @@ void add_to_database(HashT *, char *, char *);
 void create_database(FileList *, HashT *);
 void display_database(HashT *);
 void search_database(HashT *, char *);
+void save_database_to_file(HashT *);
 
 #endif
