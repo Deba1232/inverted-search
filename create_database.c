@@ -73,11 +73,13 @@ void add_to_database(HashT *arr, char *file_name, char *word){
 	}
 }
 
-void create_database(FileList *head, HashT *hash_arr){
+void create_database(FileList *head, HashT *hash_arr, int update_flag){
 	char word[50];
 
-	create_hashtable(hash_arr, HASHTABLE_SIZE);
-
+	if(!update_flag){
+		initialize_hashtable(hash_arr, HASHTABLE_SIZE);
+	}
+	
 	if(!head){
 		fprintf(stderr, "File list is empty, unable to proceed further\n");
 		exit(EXIT_FAILURE);
