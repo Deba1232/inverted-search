@@ -4,8 +4,9 @@
 int main(int argc, char *argv[])
 {
 	char choice_to_continue;
-	int option;
-	char word_to_search[50];
+	int option, create_database_flag = 0, update_database_flag = 0;
+	char word_to_search[50], database_file_name[50];
+	FILE *database_file = NULL;
 	FileList *head = NULL;
 	HashT hash_arr[HASHTABLE_SIZE] = {0};
 
@@ -20,35 +21,78 @@ int main(int argc, char *argv[])
 
 			switch(option){
 				case 1:
-					create_database(head, hash_arr);
+					if(!create_database_flag || !update_database_flag){
+						create_database(head, hash_arr, update_database_flag);
 					
-					printf("\033[0;34m" "Database created successfully for the files : " "\033[0m");
-					while(head){
-						printf("%s ", head->file);
-						head = head->link;
-					}
-					printf("\n");
+						printf("\033[0;34m" "Database created successfully for the file(s) : " "\033[0m");
+						while(head){
+							printf("%s ", head->file);
+							head = head->link;
+						}
+						printf("\n");
 
+						create_database_flag = 1;
+						update_database_flag = 1;
+					}
+					else{
+						printf("\033[0;31m" "\nDatabase already created!!\n" "\033[0m");
+					}
+	
 					break;
 				case 2:
 					display_database(hash_arr);
 					break;
 				case 3:
+					if(!update_database_flag){
+						while(getchar()!='\n');
+
+						printf("\nEnter the database file: ");
+						scanf("%s", database_file_name);
+
+						if(proper_extension(database_file_name)){
+							update_database(hash_arr, &head, database_file_name, database_file);
+							printf("\033[0;34m" "Database updated successfully\n" "\033[0m");
+
+							update_database_flag = 1;
+						}
+						else{
+							printf("Please provide the file name as <filename>.txt\n");
+						}
+					}
+					else{
+						printf("\033[0;31m" "\nDatabase is already updated!!\n" "\033[0m");
+					}
+
 					break;
 				case 4:
 					while(getchar()!='\n');
 
-					printf("Enter the word you want to search: ");
+					printf("\nEnter the word you want to search: ");
 					scanf("%s",word_to_search);
 
 					search_database(hash_arr, word_to_search);
 
 					break;
 				case 5:
-					save_database_to_file(hash_arr);
+					if(create_database_flag){
+						while(getchar()!='\n');
 
-					sleep(1);
-					printf("\033[0;34m" "Database Saved!\n" "\033[0m");
+						printf("\nEnter the file name to save the database: ");
+						scanf("%s", database_file_name);
+
+						if(proper_extension(database_file_name)){
+							save_database_to_file(hash_arr, database_file_name, database_file);
+
+							sleep(1);
+							printf("\033[0;34m" "Database Saved!\n" "\033[0m");
+						}
+						else{
+							printf("Please provide the file name as <filename>.txt\n");
+						}
+					}
+					else{
+						printf("\033[0;31m" "\nCreate a database first!!\n" "\033[0m");
+					}
 
 					break;
 				default:
