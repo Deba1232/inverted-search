@@ -52,7 +52,7 @@ void parse_arguments(int argc, char *argv[], FileList **head){
 
                     if(!is_duplicate_file(argv[i], i, argv)){
                         insert_at_last(head, argv[i]);
-                        printf("%s is successfully added\n", argv[i]);
+                        printf("%s is successfully added to the list of files to be processed\n", argv[i]);
                     }
                     else{
                         printf("%s is already added\n", argv[i]);
