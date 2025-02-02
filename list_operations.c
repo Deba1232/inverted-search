@@ -1,4 +1,5 @@
 #include "list_operations.h"
+#include "validate.h"
 
 void insert_at_last(FileList **head, char *file_name){
     FileList *new_node = (FileList *)calloc(1, sizeof(FileList));
@@ -23,6 +24,40 @@ void insert_at_last(FileList **head, char *file_name){
 
     temp->link = new_node;
     return;
+}
+
+int find_file_node(FileList *head, char *file_name){
+	FileList *temp = head;
+
+	while(temp){
+		if(strcmp(temp->file, file_name) == 0){
+			return SUCCESS;
+		}
+		temp = temp->link;
+	}
+
+	return FAILURE;
+}
+
+void delete_file_node(FileList **head, char *file_name){
+	FileList *temp = *head, *prev = NULL;
+
+	while(temp){
+		if(find_file_node(temp, file_name)){
+			if(!prev){
+				*head = temp->link;
+			}
+			else{
+				prev->link = temp->link;
+			}
+
+			free(temp);
+			return;
+		}
+		
+		prev = temp;
+		temp = temp->link;
+	}
 }
 
 void delete_list(FileList **head){
@@ -60,7 +95,7 @@ void print_list(FileList *head){
     }
 }
 
-void create_hashtable(HashT *arr, int size){
+void initialize_hashtable(HashT *arr, int size){
     for(int i=0;i<size;i++){
 		arr[i].index = i;
 		arr[i].link = NULL;
@@ -93,3 +128,7 @@ SubNode *create_sub_node(SubNode *sub_node, char *file_name){
 
     return sub_node;
 }
+
+// void delete_hashtable(){
+
+// }
