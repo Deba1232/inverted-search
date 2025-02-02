@@ -1,8 +1,7 @@
 #include "inverted_search.h"
 
-void save_database_to_file(HashT *hash_arr){
+void save_database_to_file(HashT *hash_arr, char *database_file_name, FILE *database_file){
     int empty_database_flag = 1;
-    FILE *database_file = NULL;
 
     for(int i=0;i < HASHTABLE_SIZE;i++){
         if(hash_arr[i].link){
@@ -12,7 +11,7 @@ void save_database_to_file(HashT *hash_arr){
     }
 
     if(!empty_database_flag){
-        database_file = fopen("database.txt", "w");
+        database_file = fopen(database_file_name, "w");
 
         if(!database_file){
             fprintf(stderr, "File couldn't be opened for writing, unable to proceed further\n");
