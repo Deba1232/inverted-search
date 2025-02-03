@@ -50,18 +50,19 @@ int main(int argc, char *argv[])
 						scanf("%s", database_file_name);
 
 						if(proper_extension(database_file_name)){
-							update_database(hash_arr, &head, database_file_name, database_file);
 
-							if(head){
-								printf("\033[0;34m" "Database updated successfully\n" "\033[0m");
-							}
-							else{
-								printf("\033[0;31m" "\nFiles are already in the database!!\n" "\033[0m");
-								create_database_flag = 1;
-							}
-							
+							if(update_database(hash_arr, &head, database_file_name, database_file)){
 
-							update_database_flag = 1;
+								if(head){
+									printf("\033[0;34m" "Database updated successfully\n" "\033[0m");
+								}
+								else{
+									printf("\033[0;31m" "\nFiles are already in the database!!\n" "\033[0m");
+									create_database_flag = 1;
+								}
+								
+								update_database_flag = 1;
+							}
 						}
 						else{
 							printf("Please provide the file name as <filename>.txt\n");
@@ -121,7 +122,7 @@ int main(int argc, char *argv[])
 		
 	}
 	else{
-		printf("\033[0;31m" "Please provide file names to start\n" "\033[0m");
+		printf("\033[0;31m" "Please provide a file to start\n\n" "\033[0m");
 	}
 }
 

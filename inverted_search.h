@@ -37,6 +37,6 @@ void create_database(FileList *, HashT *, int);
 void display_database(HashT *);
 void search_database(HashT *, char *);
 void save_database_to_file(HashT *, char *, FILE *);
-void update_database(HashT *, FileList **, char *, FILE *);
+int update_database(HashT *, FileList **, char *, FILE *);
 
 #endif

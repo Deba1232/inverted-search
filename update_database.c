@@ -55,7 +55,7 @@ int is_valid_database_file(char *database_file_name, FILE *database_file){
     }
 }
 
-void update_database(HashT *hash_arr, FileList **head, char *database_file_name, FILE *database_file){
+int update_database(HashT *hash_arr, FileList **head, char *database_file_name, FILE *database_file){
     int hash_index, file_count, word_count;
     char word[50], file_name[50];
     MainNode *main_node = NULL, *prev_main_node = NULL;
@@ -104,8 +104,10 @@ void update_database(HashT *hash_arr, FileList **head, char *database_file_name,
         }
 
         fclose(database_file);
+
+        return SUCCESS;
     }
     else{
-        return;
+        return FAILURE;
     }
 }
